@@ -1,0 +1,174 @@
+html{
+	margin: auto;
+	height: 100%;
+	background-color: #333333;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.bandeau{
+    width:100.9%;
+    margin-bottom:-20px;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+main{
+    color: white;
+    text-align: center;
+}
+
+/*/----NAV----/*/
+
+nav{
+    width: 100.9%;
+    margin-left: -10px;
+    background-color: #465B59;
+}
+
+nav ul{
+    list-style-type: none;
+}
+
+nav ul li{
+    float: left;
+    width: 20%;
+    text-align: center;
+    position: relative;
+}
+
+nav ul::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+nav a{
+    display: block;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding: 10px 0px;
+}
+
+a{
+    font-weight: bold;
+}
+
+.nav{
+    color: white;
+    font-size: 20px;
+}
+.nav:hover{
+    color: rgb(49, 47, 47);
+}
+
+/*/---LivingDex---/*/
+
+.table-container {
+    overflow-x: auto;
+}
+
+.livingdex{
+    border: black 3px solid;
+    background-color: #474747;
+    margin-left: 200px;
+    margin-right: 200px;
+    text-align: center;
+    color : white;
+    margin-top:50px;
+}
+
+img{
+    width: 80px;
+}
+
+th,td{
+	text-align: center;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+	background-color: #333333;
+	border: black 1px solid;
+}
+
+table{
+	margin: auto;
+	font-weight: bold;
+	border-collapse : separate;
+ 	border-spacing : 10px;
+}
+
+.invisible{
+	border-width: 0px;
+	background-color: #474747;
+}
+
+.container .bar:not(:last-child){
+    margin-bottom: 15px;
+}
+
+.bar {
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+	margin-left: 25%;
+	margin-right: 25%;
+    background: #444;
+    border-radius: 5px;
+    box-shadow: inset 5px 5px 10px #2c2c2c, 
+    inset -5px -5px 10px #5c5c5c;
+}
+
+.bar-stat{
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-shadow: 0 0 5px #000;
+}
+
+#html{
+    background: #d65c3d;
+    animation: htmlSlide 1.5s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+#css{
+    background: #3755cc;
+    animation: cssSlide 1.5s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+#js{
+    background: #d4a040;
+    animation: jsSlide 1.5s  cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes htmlSlide{
+    0%{width: 0%;}
+    100%{width: 88.91%;} /*<-- modifier le pourcentage ici pour modifier la taille de la bar*/
+}
+
+@keyframes cssSlide{
+    0%{width: 0%;}
+    100%{width: 80%;}
+}
+
+@keyframes jsSlide{
+    0%{width: 0%;}
+    100%{width: 60%;}
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+/*------------------------------------*/
+/*Changer la couleur du fond du pokemon*/
+/*------------------------------------*/
+
+.trouve{
+	background-color: #ffc800
+}
+
+/*------------------------------------*/
+/*1027 Pokemon trouvé sur 1155*/
+/*------------------------------------*/
