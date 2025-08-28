@@ -142,7 +142,7 @@ table{
 
 @keyframes htmlSlide{
     0%{width: 0%;}
-    100%{width: 89.95%;} /*<-- modifier le pourcentage ici pour modifier la taille de la bar*/
+    100%{width: 90.13%;} /*<-- modifier le pourcentage ici pour modifier la taille de la bar*/
 }
 
 @keyframes cssSlide{
