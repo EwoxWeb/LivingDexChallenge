@@ -16,7 +16,7 @@ class NavBar extends HTMLElement {
       <nav>
         <div class="nav-logo"><a href="index.html"><span>✦</span> Shiny Community's Challenge</a></div>
         <div class="nav-links" id="nav-links">
-          <a href="Living_Dex_1g.html">✨ Shiny Card</a>
+          <a href="Living_Dex_1G.html">✨ Shiny Card</a>
           <a href="top.html">🏆 Top Hunter</a>
           <a href="Rules.html">📋 Règles</a>
         </div>
