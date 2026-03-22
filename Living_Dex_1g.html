@@ -38,7 +38,14 @@
   </div>
   
   <dex-header active="1G"></dex-header>
-  <div class="dex-grid">
+  <!-- ── BOUTON TRI ── -->
+  <div class="sort-wrap">
+    <button class="btn-sort" id="btn-sort" onclick="toggleMissingFirst()">
+      <span class="sort-icon">❓</span> Afficher les manquants en premier
+    </button>
+  </div>
+
+  <div class="dex-grid" id="dex-grid">
     <div class="poke-card found">
       <div class="poke-img-wrap">
         <img alt="Bulbizarre" src="Images/shiny/bulbizarre.png" />
