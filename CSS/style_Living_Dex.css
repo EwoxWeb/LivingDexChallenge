@@ -283,7 +283,7 @@ nav {
 .poke-card:hover::before { opacity: 1; }
  
 .poke-img-wrap {
-  width: 110px; height: 110px;
+  width: 86px; height: 86px;
   display: flex; align-items: center; justify-content: center;
   position: relative;
 }
@@ -298,9 +298,9 @@ nav {
 .poke-card:hover .poke-img-wrap::before { opacity: 1; }
  
 .poke-img-wrap img {
-  width: 100px; height: 100px;
+  width: 80px; height: 80px;
   object-fit: contain;
-  image-rendering: auto;
+  image-rendering: pixelated;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .5));
   transition: transform var(--transition);
 }
@@ -338,9 +338,9 @@ nav {
 .poke-card:hover .poke-img-wrap::before { opacity: 1; }
 
 .poke-img-wrap img {
-  width: 100px; height: 100px;
+  width: 80px; height: 80px;
   object-fit: contain;
-  image-rendering: auto;
+  image-rendering: pixelated;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .5));
   transition: transform var(--transition);
 }
@@ -415,3 +415,32 @@ footer a:hover { color: var(--gold); }
 }
 .poke-card.missing:hover .poke-img-wrap::before { opacity: 0; }
 .poke-card.missing:hover .poke-img-wrap img { transform: none; }
+/* ── BOUTON TRI MANQUANTS ── */
+.sort-wrap {
+  display: flex;
+  justify-content: center;
+  margin: -1rem 0 1.5rem;
+  position: relative; z-index: 1;
+}
+.btn-sort {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .88rem; font-weight: 700; letter-spacing: .06em;
+  padding: .5rem 1.2rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex; align-items: center; gap: .45rem;
+  transition: all var(--transition);
+}
+.btn-sort:hover {
+  border-color: var(--gold2);
+  color: var(--gold);
+}
+.btn-sort.active {
+  border-color: #e05050;
+  color: #e05050;
+  background: rgba(224, 80, 80, .08);
+}
+.btn-sort .sort-icon { font-size: .9rem; }
