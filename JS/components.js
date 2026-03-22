@@ -1,6 +1,6 @@
 // ── Données à modifier ici ────────────────────────────────────────────────
 const LIVING_DEX_DATA = {
-  caught: 1028,
+  caught: 1029,
   total:  1113,
   get percent() {
     return (this.caught * 100 / this.total).toFixed(2);
