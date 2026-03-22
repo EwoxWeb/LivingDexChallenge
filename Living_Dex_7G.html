@@ -16,28 +16,33 @@
 
 <body>
     <!-- ── ÉTINCELLES SHINY ── -->
-  <div class="bg-shapes">
-    <div class="bg-halo"></div>
-    <div class="bg-halo"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-    <div class="spark"></div>
-  </div>
+    <div class="bg-shapes">
+        <div class="bg-halo"></div>
+        <div class="bg-halo"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+    </div>
     <dex-header active="7G"></dex-header>
-    <div class="dex-grid">
+    <div class="sort-wrap">
+        <button class="btn-sort" id="btn-sort" onclick="toggleMissingFirst()">
+            <span class="sort-icon">❓</span> Afficher les manquants en premier
+        </button>
+    </div>
+    <div class="dex-grid" id="dex-grid">
         <div class="poke-card found">
             <div class="poke-img-wrap">
                 <img alt="Brindibou" src="Images/shiny/brindibou.png" />
