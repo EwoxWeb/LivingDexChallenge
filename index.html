@@ -1,35 +1,93 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-	<meta charset="UTF-8" />
-	<title>Accueil</title>
-	<link rel="stylesheet" type="text/css" href="CSS/index.css">
-	<link rel="shortcut icon" href="Images/logo en haut à gauche.png" type="image/x-icon" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shiny Card – Accueil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="shortcut icon" href="Images/logo en haut à gauche.png" type="image/x-icon" />
+  <link rel="stylesheet" href="CSS/style_index.css"/>
+  <style>
+    /* Pas de scroll sur desktop */
+    @media (min-width: 901px) {
+      html, body { overflow: hidden; height: 100%; }
+    }
+  </style>
+  <script src="JS/components.js" defer></script>
 </head>
-<a href="index.html"><img class="bandeau" src="Images/bandeau9g.png"></a>
-<nav>
-	<ul>
-		<li><a class="nav"></a></li>
-		<li><a class="nav" href="Living Dex 1g.html">Shiny Card</a></li>
-		<li><a class="nav" href="top.html">Top Hunter</a></li>
-		<li><a class="nav" href="Règles.html">Règles</a></li>
-	</ul>
-</nav>
-
 <body>
-	<main>
-		<h1>
-			Acceuil
-		</h1>
-		<article>
-			<br />
-		</article>
-	</main>
-	<center><aside>
-		<a href="https://discord.gg/JFPrVQV"><img src="Images/1200px-Discord.svg.png" WIDTH=100 border="0">
-		<a href=https://www.youtube.com/channel/UCfYXuvKn8WUVhSS4Os8AJtg><img src="Images/logo youtube.png" WIDTH=100 border="0">
-	</aside></center>
-</body>
 
+  <!-- ── ÉTINCELLES SHINY ── -->
+  <div class="bg-shapes">
+    <div class="bg-halo"></div>
+    <div class="bg-halo"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+  </div>
+
+  <nav-bar></nav-bar>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Bienvenue</div>
+    <h1>Shiny Community's<br/>Challenge</h1>
+    <p>Complétez ensemble la Living Shiny Dex de la communauté Nova Storm</p>
+    <div class="hero-cta">
+      <a href="Living_Dex_1g.html" class="btn-primary">Voir la Shiny Card</a>
+      <a href="Rules.html" class="btn-secondary">Lire les règles</a>
+    </div>
+  </section>
+
+  <!-- ── CARDS ── -->
+  <div class="cards-wrap">
+
+    <a href="Living_Dex_1g.html" class="home-card">
+      <div class="home-card-icon">✨</div>
+      <div class="home-card-text">
+        <h3>Shiny Card</h3>
+        <p>Suivez la progression collective de la Living Shiny Dex</p>
+        <span class="home-card-link">Voir la carte →</span>
+      </div>
+    </a>
+
+    <a href="top.html" class="home-card">
+      <div class="home-card-icon">🏆</div>
+      <div class="home-card-text">
+        <h3>Top Hunter</h3>
+        <p>Découvrez le classement des meilleurs Shiny Hunters</p>
+        <span class="home-card-link">Voir le classement →</span>
+      </div>
+    </a>
+
+    <a href="Rules.html" class="home-card">
+      <div class="home-card-icon">📋</div>
+      <div class="home-card-text">
+        <h3>Règles</h3>
+        <p>Tout ce qu'il faut savoir pour participer au challenge</p>
+        <span class="home-card-link">Lire les règles →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer-bar></footer-bar>
+
+  <script src="JS/main.js"></script>
+
+</body>
 </html>
