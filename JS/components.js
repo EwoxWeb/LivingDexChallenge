@@ -177,10 +177,10 @@ customElements.define('progress-bar', ProgressBar);
 // ── Générations terminées ─────────────────────────────────────────────────
 // Ajoute ou retire un identifiant de tab pour marquer la génération comme complète.
 // Les identifiants disponibles sont : '1G','2G','3G','4G','5G','6G','7G','8G','9G','Forme','Bonus'
-const COMPLETED_GENS = ['1g'];
+const COMPLETED_GENS = ['1G'];
 // ──────────────────────────────────────────────────────────────────────────
 
-const TABS = ['1g','2g','3g','4g','5g','6g','7g','8g','9g','Forme','Bonus'];
+const TABS = ['1G','2G','3G','4G','5G','6G','7G','8G','9G','Formes','Bonus'];
 
 class DexHeader extends HTMLElement {
   connectedCallback() {
