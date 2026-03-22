@@ -35,8 +35,13 @@
         <div class="bg-shape star" style="width:12px;height:12px;top:10%;left:40%"></div>
     </div>
     <dex-header active="Formes"></dex-header>
+    <div class="sort-wrap">
+        <button class="btn-sort" id="btn-sort" onclick="toggleMissingFirst()">
+            <span class="sort-icon">❓</span> Afficher les manquants en premier
+        </button>
+    </div>
     <h2 style="text-align: center;">Zarbi</h2><br />
-    <div class="dex-grid">
+    <div class="dex-grid" id="dex-grid">
         <div class="poke-card missing">
             <div class="poke-img-wrap">
                 <img alt="Zarbi A" src="Images/Zarbi/zarbi-a.png" />
@@ -281,7 +286,7 @@
             <span class="poke-hunter">???</span>
         </div>
     </div>
-    <h2 style="text-align: center;">Aloa</h2><br />
+    <h2 style="text-align: center;">Alola</h2><br />
     <div class="dex-grid">
         <div class="poke-card found">
             <div class="poke-img-wrap">
