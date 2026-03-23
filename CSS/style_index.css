@@ -26,8 +26,6 @@ body {
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Pousse le footer tout en bas */
