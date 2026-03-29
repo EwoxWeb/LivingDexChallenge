@@ -13,22 +13,44 @@ async function fetchCaught() {
   try {
     const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSpCDxKke7zdiiaHYbixspzcOzTT-rbmZkD2fd8b5nf3zRaSufYhLFljVcXcK9LZwpkZD1SngX87N35/pub?gid=962192939&output=csv');
     const csv = await response.text();
-    console.log('CSV récupéré :', csv);
     const lines = csv.split('\n');
     if (lines.length > 0) {
       const firstLine = lines[0].trim();
-      console.log('Première ligne :', firstLine);
       const cells = firstLine.split(',');
-      console.log('Cellules :', cells);
-      const value = parseInt(cells[1]);
-      console.log('Valeur de B1 :', value);
-      return value || 1;
+      return parseInt(cells[1]) || 1037;
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
   }
   return 1037; // valeur par défaut
 }
+
+async function fetchTopData() {
+  try {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSpCDxKke7zdiiaHYbixspzcOzTT-rbmZkD2fd8b5nf3zRaSufYhLFljVcXcK9LZwpkZD1SngX87N35/pub?gid=1727117815&output=csv&t=' + Date.now());
+    const csv = await response.text();
+    console.log('CSV top récupéré :', csv.substring(0, 200));
+    const lines = csv.split('\n');
+    if (lines.length >= 2) {
+      const names = lines[0].split(',').slice(1);
+      const scores = lines[1].split(',').slice(1);
+      console.log('Names:', names);
+      console.log('Scores:', scores);
+      const players = names.map((name, i) => ({
+        name: name.trim(),
+        score: parseInt(scores[i]) || 0
+      })).filter(p => p.name && p.score > 0).sort((a, b) => b.score - a.score);
+      console.log('Players triés:', players.slice(0, 10));
+      return players;
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données du top :', error);
+  }
+  return [];
+}
+
+// Rendre globale pour l'utiliser dans top.html
+window.fetchTopData = fetchTopData;
 
 // ── NavBar Web Component ───────────────────────────────────────────────────
 // Usage : <nav-bar></nav-bar>

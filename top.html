@@ -7,8 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="shortcut icon" href="Images/logo en haut à gauche.png" type="image/x-icon" />
   <link rel="stylesheet" href="CSS/style_top.css"/>
-  <script src="JS/components.js" defer></script>
-</head>
+  <script src="JS/components.js"></script>
 <body>
 
   <!-- ── ÉTINCELLES SHINY ── -->
@@ -82,7 +81,7 @@
     <div class="lb-row"><span class="lb-rank">6</span><span class="lb-name">Lucastar</span><span class="lb-score">63 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">7</span><span class="lb-name">Platinium Foxier</span><span class="lb-score">62 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">8</span><span class="lb-name">Satoshi</span><span class="lb-score">23 Shiny</span></div>
-    <div class="lb-row"><span class="lb-rank">9</span><span class="lb-name">kenzo</span><span class="lb-score">19 Shiny</span></div>
+    <div class="lb-row"><span class="lb-rank">9</span><span class="lb-name">Kenzo</span><span class="lb-score">19 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">10</span><span class="lb-name">A le Gameur</span><span class="lb-score">19 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">11</span><span class="lb-name">Maxime</span><span class="lb-score">17 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">12</span><span class="lb-name">Gaven</span><span class="lb-score">17 Shiny</span></div>
@@ -94,7 +93,7 @@
     <div class="lb-row"><span class="lb-rank">18</span><span class="lb-name">Dylho</span><span class="lb-score">5 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">19</span><span class="lb-name">NovaStorm</span><span class="lb-score">5 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">20</span><span class="lb-name">FT_NoNo</span><span class="lb-score">5 Shiny</span></div>
-    <div class="lb-row"><span class="lb-rank">21</span><span class="lb-name">matheo</span><span class="lb-score">5 Shiny</span></div>
+    <div class="lb-row"><span class="lb-rank">21</span><span class="lb-name">Matheo</span><span class="lb-score">5 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">22</span><span class="lb-name">Stitchou</span><span class="lb-score">5 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">23</span><span class="lb-name">Benra_</span><span class="lb-score">4 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">24</span><span class="lb-name">Lyut</span><span class="lb-score">4 Shiny</span></div>
@@ -104,7 +103,7 @@
     <div class="lb-row"><span class="lb-rank">28</span><span class="lb-name">Pokemaz</span><span class="lb-score">3 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">29</span><span class="lb-name">acidity_kuno</span><span class="lb-score">3 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">30</span><span class="lb-name">LeDragonDuSommeil</span><span class="lb-score">2 Shiny</span></div>
-    <div class="lb-row"><span class="lb-rank">31</span><span class="lb-name">Nargax SH</span><span class="lb-score">2 Shiny</span></div>
+    <div class="lb-row"><span class="lb-rank">31</span><span class="lb-name">Nargax Sh</span><span class="lb-score">2 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">32</span><span class="lb-name">Damien</span><span class="lb-score">2 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">33</span><span class="lb-name">Mateo</span><span class="lb-score">2 Shiny</span></div>
     <div class="lb-row"><span class="lb-rank">34</span><span class="lb-name">50 Rupees</span><span class="lb-score">1 Shiny</span></div>
@@ -130,6 +129,48 @@
   <footer-bar></footer-bar>
 
   <script src="JS/main.js"></script>
+
+  <script>
+    async function loadTop() {
+      console.log('loadTop appelé');
+      const players = await window.fetchTopData();
+      console.log('Players reçus:', players);
+      if (players.length === 0) {
+        console.log('Pas de joueurs reçus');
+        return;
+      }
+
+      // Podium (top 4)
+      const podiumWrap = document.querySelector('.podium-wrap');
+      const podiumCards = podiumWrap.querySelectorAll('.podium-card');
+      const ranks = [1, 0, 2, 3]; // 1er, 2ème, 3ème, 4ème
+      podiumCards.forEach((card, i) => {
+        const player = players[ranks[i]];
+        if (player) {
+          card.querySelector('.podium-name').textContent = player.name;
+          card.querySelector('.podium-count').innerHTML = `${player.score} <span>Shiny</span>`;
+        }
+      });
+
+      // Leaderboard (à partir du 5ème)
+      const leaderboard = document.querySelector('.leaderboard');
+      const restPlayers = players.slice(4);
+      console.log('Ajout des joueurs à partir du 5ème:', restPlayers);
+      
+      if (restPlayers.length > 0) {
+        leaderboard.innerHTML = '';
+        restPlayers.forEach((player, i) => {
+          const row = document.createElement('div');
+          row.className = 'lb-row visible';
+          row.innerHTML = `<span class="lb-rank">${i + 5}</span><span class="lb-name">${player.name}</span><span class="lb-score">${player.score} Shiny</span>`;
+          leaderboard.appendChild(row);
+        });
+      } else {
+        console.log('Pas assez de joueurs pour le leaderboard');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadTop);
+  </script>
 
 </body>
 </html>
