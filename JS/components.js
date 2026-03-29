@@ -1,11 +1,34 @@
 // ── Données à modifier ici ────────────────────────────────────────────────
 const LIVING_DEX_DATA = {
-  caught: 1037,
-  total:  1113,
-  get percent() {
-    return (this.caught * 100 / this.total).toFixed(2);
+  total: 1113,
+  caught: fetchCaught(),
+  async getData() {
+    const caught = await this.caught;
+    const percent = (caught * 100 / this.total).toFixed(2);
+    return { caught, total: this.total, percent };
   }
 };
+
+async function fetchCaught() {
+  try {
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSpCDxKke7zdiiaHYbixspzcOzTT-rbmZkD2fd8b5nf3zRaSufYhLFljVcXcK9LZwpkZD1SngX87N35/pub?gid=962192939&output=csv');
+    const csv = await response.text();
+    console.log('CSV récupéré :', csv);
+    const lines = csv.split('\n');
+    if (lines.length > 0) {
+      const firstLine = lines[0].trim();
+      console.log('Première ligne :', firstLine);
+      const cells = firstLine.split(',');
+      console.log('Cellules :', cells);
+      const value = parseInt(cells[1]);
+      console.log('Valeur de B1 :', value);
+      return value || 1;
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données :', error);
+  }
+  return 1037; // valeur par défaut
+}
 
 // ── NavBar Web Component ───────────────────────────────────────────────────
 // Usage : <nav-bar></nav-bar>
@@ -141,27 +164,27 @@ customElements.define('footer-bar', Footer);
 
 class ProgressBar extends HTMLElement {
   connectedCallback() {
-    const { percent, caught, total } = LIVING_DEX_DATA;
+    LIVING_DEX_DATA.getData().then(({ percent, caught, total }) => {
+      this.innerHTML = `
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span class="progress-label">Complétion globale (hors bonus)</span>
+            <span class="progress-nums">
+              ${percent}%
+              <small>${caught} / ${total}</small>
+            </span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" data-percent="${percent}"></div>
+          </div>
+        </div>`;
 
-    this.innerHTML = `
-      <div class="progress-wrap">
-        <div class="progress-header">
-          <span class="progress-label">Complétion globale (hors bonus)</span>
-          <span class="progress-nums">
-            ${percent}%
-            <small>${caught} / ${total}</small>
-          </span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill" data-percent="${percent}"></div>
-        </div>
-      </div>`;
-
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        const bar = this.querySelector('.bar-fill');
-        if (bar) bar.style.width = percent + '%';
-      }, 80);
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const bar = this.querySelector('.bar-fill');
+          if (bar) bar.style.width = percent + '%';
+        }, 80);
+      });
     });
   }
 }
