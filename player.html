@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shiny Card – Joueur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="shortcut icon" href="Images/logo en haut à gauche.png" type="image/x-icon" />
+  <link rel="stylesheet" href="CSS/style_Living_Dex.css"/>
+  <script src="JS/components.js"></script>
+</head>
+<body>
+
+  <!-- ── ÉTINCELLES SHINY ── -->
+  <div class="bg-shapes">
+    <div class="bg-halo"></div>
+    <div class="bg-halo"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+  </div>
+
+  <nav-bar></nav-bar>
+
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Shiny Community's Challenge</div>
+    <h1 id="player-name">Chargement...</h1>
+    <p id="player-count">Shiny capturés</p>
+  </section>
+
+  <div class="dex-grid" id="dex-grid">
+    <!-- Pokémon affichés dynamiquement -->
+  </div>
+
+  <footer-bar></footer-bar>
+
+  <script src="JS/main.js"></script>
+
+  <script>
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function formatPokemonName(pokemonName) {
+      let displayName = pokemonName;
+      let suffixes = [];
+      
+      // Cas spécial pour Ho-Oh et Ama-Ama: garder le tiret
+      const isHoOh = displayName.toLowerCase().startsWith('ho-oh');
+      const isAmaAma = displayName.toLowerCase() === 'ama-ama';
+      
+      // Cas spécial pour Type0: remplacer type0 par Type:0
+      if (displayName.toLowerCase() === 'type0') {
+        displayName = 'Type:0';
+      }
+      
+      // Cas spécial pour Tauros Paldea: combiner région et type
+      if (displayName.toLowerCase() === 'tauros-p-e') {
+        return 'Tauros Paldea Eau';
+      }
+      if (displayName.toLowerCase() === 'tauros-p-f') {
+        return 'Tauros Paldea Feu';
+      }
+      
+      // Vérifier les suffixes régionaux (a, g, p)
+      const regionalMatch = displayName.match(/-(a|g|p)$/i);
+      if (regionalMatch) {
+        const regionCode = regionalMatch[1].toLowerCase();
+        let regionName;
+        if (regionCode === 'a') {
+          regionName = 'Alola';
+        } else if (regionCode === 'g') {
+          regionName = 'Galar';
+        } else if (regionCode === 'p') {
+          regionName = 'Paldea';
+        }
+        suffixes.push(regionName);
+        displayName = displayName.replace(/-[agp]$/i, '');
+      }
+      
+      // Vérifier les suffixes genre (f, m)
+      const genderMatch = displayName.match(/-(f|m)$/i);
+      if (genderMatch) {
+        const genderCode = genderMatch[1].toLowerCase();
+        const genderName = genderCode === 'f' ? 'Femelle' : 'Mâle';
+        suffixes.push(genderName);
+        displayName = displayName.replace(/-[fm]$/i, '');
+      }
+      
+      // Vérifier les suffixes spécialisés pour Deusolourdo (t, d)
+      if (displayName.toLowerCase().includes('deusolourdo')) {
+        const deusoMatch = displayName.match(/-(t|d)$/i);
+        if (deusoMatch) {
+          const deusoCode = deusoMatch[1].toLowerCase();
+          const deusoName = deusoCode === 't' ? 'Triple' : 'Double';
+          suffixes.push(deusoName);
+          displayName = displayName.replace(/-[td]$/i, '');
+        }
+      }
+      
+      // Vérifier les suffixes couleurs (b, j, o, r, w, v)
+      const colorMatch = displayName.match(/-(b|j|o|r|w|v)$/i);
+      if (colorMatch) {
+        const colorCode = colorMatch[1].toLowerCase();
+        let colorName;
+        if (colorCode === 'b') {
+          colorName = 'Bleue';
+        } else if (colorCode === 'j') {
+          colorName = 'Jaune';
+        } else if (colorCode === 'o') {
+          colorName = 'Orange';
+        } else if (colorCode === 'r') {
+          colorName = 'Rouge';
+        } else if (colorCode === 'w') {
+          colorName = 'Blanc';
+        } else if (colorCode === 'v') {
+          colorName = 'Vert';
+        }
+        suffixes.push(colorName);
+        displayName = displayName.replace(/-[bjorwv]$/i, '');
+      }
+      
+      // Remplacer tous les tirets restants par des espaces (sauf pour Ho-Oh et Ama-Ama)
+      if (!isHoOh && !isAmaAma && !displayName.includes(':')) {
+        displayName = displayName.replace(/-/g, ' ');
+      }
+      
+      // Mettre en majuscule le premier caractère de chaque mot (sauf si déjà formaté comme Type: 0)
+      if (!displayName.includes(':')) {
+        displayName = displayName.split(' ').map(word => capitalize(word)).join(' ');
+      }
+      
+      // Ajouter les suffixes
+      if (suffixes.length > 0) {
+        displayName += ' ' + suffixes.join(' ');
+      }
+      
+      return displayName;
+    }
+
+    async function loadPlayerData() {
+      const params = new URLSearchParams(window.location.search);
+      const playerName = params.get('player');
+      
+      console.log('URL params:', playerName);
+      
+      if (!playerName) {
+        document.getElementById('player-name').textContent = 'Joueur introuvable';
+        return;
+      }
+
+      document.getElementById('player-name').textContent = playerName;
+      
+      // Récupérer les pokemon du joueur
+      console.log('Appel fetchPlayerPokemon avec:', playerName);
+      const pokemonList = await window.fetchPlayerPokemon(playerName);
+      console.log('Pokemon capturés:', pokemonList);
+      
+      if (!pokemonList || pokemonList.length === 0) {
+        document.getElementById('dex-grid').innerHTML = '<p>Aucun pokémon capturé</p>';
+        return;
+      }
+
+      document.getElementById('player-count').textContent = `${pokemonList.length} Shiny capturés`;
+      
+      // Afficher les pokémon
+      const grid = document.getElementById('dex-grid');
+      grid.innerHTML = '';
+      
+      pokemonList.forEach(pokemonName => {
+        const card = document.createElement('div');
+        card.className = 'poke-card found visible';
+        
+        // Vérifier si c'est un Zarbi avec une lettre ou un caractère spécial
+        let imagePath;
+        const zarbiMatch = pokemonName.match(/^zarbi\s+(.+)$/i);
+        if (zarbiMatch) {
+          const suffix = zarbiMatch[1].toLowerCase();
+          let imageName;
+          if (suffix === '!') {
+            imageName = 'zarbi-pointExcla';
+          } else if (suffix === '?') {
+            imageName = 'zarbi-pointInterro';
+          } else {
+            imageName = `zarbi-${suffix}`;
+          }
+          imagePath = `Images/Zarbi/${imageName}.png`;
+        } else {
+          const imageName = pokemonName.toLowerCase().replace(/ /g, '-').replace(/[àâäé]/g, c => ({'à':'a', 'â':'a', 'ä':'a', 'é':'e'}[c] || c));
+          imagePath = `Images/shiny/${imageName}.png`;
+        }
+        
+        const displayName = formatPokemonName(pokemonName);
+        card.innerHTML = `
+          <div class="poke-img-wrap">
+            <img src="${imagePath}" alt="${pokemonName}" onerror="this.src='Images/shiny/missingno.png'"/>
+          </div>
+          <span class="poke-name">${displayName}</span>
+        `;
+        grid.appendChild(card);
+        console.log('Pokemon ajouté:', pokemonName, 'image:', imagePath);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPlayerData);
+  </script>
+
+</body>
+</html>

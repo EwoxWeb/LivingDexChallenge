@@ -281,6 +281,17 @@ footer a:hover { color: var(--gold); }
 .rank-1::after { opacity: 1; background: var(--gold); }
 .podium-card:hover::after { opacity: .8; }
 
+/* ── LEADERBOARD HINT ── */
+.leaderboard-hint {
+  max-width: 680px;
+  margin: 1rem auto;
+  padding: 0 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+  font-style: italic;
+}
+
 /* ── LEADERBOARD ── */
 .leaderboard {
   max-width: 680px;

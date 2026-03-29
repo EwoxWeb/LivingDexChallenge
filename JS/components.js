@@ -49,6 +49,48 @@ async function fetchTopData() {
   return [];
 }
 
+// Rendre globale pour l'utiliser dans player.html
+window.fetchPlayerPokemon = async function(playerName) {
+  try {
+    console.log('Début fetchPlayerPokemon pour:', playerName);
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSpCDxKke7zdiiaHYbixspzcOzTT-rbmZkD2fd8b5nf3zRaSufYhLFljVcXcK9LZwpkZD1SngX87N35/pub?gid=1727117815&output=csv&t=' + Date.now());
+    const csv = await response.text();
+    console.log('CSV récupéré, longueur:', csv.length);
+    const lines = csv.split('\n');
+    console.log('Nombre de lignes:', lines.length);
+    
+    if (lines.length >= 2) {
+      const names = lines[0].split(',').slice(1);
+      console.log('Noms trouvés:', names);
+      const playerIndex = names.findIndex(n => n.trim() === playerName);
+      console.log('Index du joueur', playerName, ':', playerIndex);
+      
+      if (playerIndex === -1) {
+        console.error('Joueur non trouvé:', playerName);
+        return [];
+      }
+      
+      // Récupère tous les pokemon du joueur (à partir de la ligne 3 = index 2)
+      const pokemonList = [];
+      for (let i = 2; i < lines.length; i++) {
+        const cells = lines[i].split(',');
+        const pokemon = cells[playerIndex + 1]?.trim();
+        if (pokemon && pokemon.length > 0) {
+          pokemonList.push(pokemon);
+        }
+      }
+      
+      console.log('Pokemon list complète:', pokemonList);
+      const filtered = pokemonList.filter(p => p.length > 0);
+      console.log('Pokemon list filtrée:', filtered);
+      return filtered;
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des pokemon :', error);
+  }
+  return [];
+};
+
 // Rendre globale pour l'utiliser dans top.html
 window.fetchTopData = fetchTopData;
 

@@ -38,6 +38,7 @@
     <div class="hero-eyebrow">✦ Shiny Community's Challenge</div>
     <h1>Top Hunter</h1>
     <p>Classement des Shiny Hunters avec le plus de captures</p>
+    <p class="leaderboard-hint">💡 Cliquez sur un pseudo pour voir tous ses shiny capturés</p>
   </section>
 
   <div class="podium-wrap">
@@ -147,7 +148,8 @@
       podiumCards.forEach((card, i) => {
         const player = players[ranks[i]];
         if (player) {
-          card.querySelector('.podium-name').textContent = player.name;
+          const nameElement = card.querySelector('.podium-name');
+          nameElement.innerHTML = `<a href="player.html?player=${encodeURIComponent(player.name)}" style="color: inherit; text-decoration: none; cursor: pointer;">${player.name}</a>`;
           card.querySelector('.podium-count').innerHTML = `${player.score} <span>Shiny</span>`;
         }
       });
@@ -162,7 +164,7 @@
         restPlayers.forEach((player, i) => {
           const row = document.createElement('div');
           row.className = 'lb-row visible';
-          row.innerHTML = `<span class="lb-rank">${i + 5}</span><span class="lb-name">${player.name}</span><span class="lb-score">${player.score} Shiny</span>`;
+          row.innerHTML = `<span class="lb-rank">${i + 5}</span><span class="lb-name"><a href="player.html?player=${encodeURIComponent(player.name)}" style="color: inherit; text-decoration: none; cursor: pointer;">${player.name}</a></span><span class="lb-score">${player.score} Shiny</span>`;
           leaderboard.appendChild(row);
         });
       } else {
