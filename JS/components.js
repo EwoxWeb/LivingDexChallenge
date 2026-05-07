@@ -288,7 +288,7 @@ class DexHeader extends HTMLElement {
 
       <section class="hero">
         <div class="hero-eyebrow">✦ Shiny Community's Challenge</div>
-        <h1>Living Shiny Dex</h1>
+        <h1>Shiny Living Dex</h1>
         <p>Suivez la progression collective de la communauté</p>
         <progress-bar></progress-bar>
       </section>
